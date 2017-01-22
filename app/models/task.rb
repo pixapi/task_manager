@@ -14,9 +14,14 @@ class Task
     @database.execute("INSERT INTO tasks (title, description) VALUES (?, ?);", @title, @description)
   end
 
-  def self.all
+  def self.database
     database = SQLite3::Database.new('db/task_manager_development.db')
     database.results_as_hash = true
+    database
+  end
+
+  def self.all
+    database
     tasks = database.execute("SELECT * FROM tasks")
     tasks.map do |task|
       Task.new(task)
@@ -24,8 +29,7 @@ class Task
   end
 
   def self.find(id)
-    database = SQLite3::Database.new('db/task_manager_development.db')
-    database.results_as_hash = true
+    database 
     task = database.execute("SELECT * FROM tasks WHERE id = ?", id).first
     Task.new(task)
   end
