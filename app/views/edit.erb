@@ -2,6 +2,7 @@
   <p>Edit</p>
   <input type="hidden" name="_method" value="PUT" />
   <input type='text' name='task[title]' value="<%= @task.title %>"/><br/>
+  binding.pry
   <textarea name='task[description]'><%= @task.description %></textarea><br/>
   <input type='submit' />
 </form>

@@ -27,6 +27,12 @@ class TaskManagerApp < Sinatra::Base
     erb :edit
   end
 
+  post '/tasks' do
+    @task = Task.new(params[:task])
+    @task.save
+    redirect '/tasks'
+  end
+
   set :method_override, true
   # ...
   put '/tasks/:id' do |id|
@@ -39,9 +45,4 @@ class TaskManagerApp < Sinatra::Base
     redirect '/tasks'
   end
 
-  post '/tasks' do
-    task = Task.new(params[:task])
-    task.save
-    redirect '/tasks'
-  end
 end
